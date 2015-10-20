@@ -17,12 +17,12 @@ public class KafkaProducerPartition implements Partitioner {
 		return convertDeviceNameToPartiton((String) key, numPartition);
 	}
 
-	private int convertDeviceNameToPartiton(String device, int numPartition) {
+	private int convertDeviceNameToPartiton(String message, int numPartition) {
 		try {
-			int partition = Integer.parseInt(device) % numPartition;
+			int partition = Integer.parseInt(message) % numPartition;
 			return partition;
 		} catch (Exception e) {
-			logger.error(String.format("KafkaProducerPartition: failed to parse string %s to int",device),e);
+			logger.error(String.format("KafkaProducerPartition: failed to parse string %s to int",message),e);
 		}
 		return 0;
 		
